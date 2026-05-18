@@ -1,0 +1,16 @@
+[toolchain]
+anchor_version = "1.0.0"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+escrow = "E5sN9sH7AB2pqhSCMPD2jdzivQCMGazpF7rbKVVRARRT"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test --test escrow_tests"

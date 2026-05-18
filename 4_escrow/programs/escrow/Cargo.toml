@@ -1,0 +1,27 @@
+[package]
+name = "escrow"
+version = "1.0.0"
+description = "Anchor Escrow Program"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "escrow"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+
+[dependencies]
+anchor-lang = { version = "1.0.0", features = ["init-if-needed"] }
+anchor-spl = "1.0.0"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
+
+[dev-dependencies]
+anchor-litesvm = "0.4.0"
+anchor-lang = { version = "1.0.0", features = ["init-if-needed"] }
+spl-associated-token-account = "8"
