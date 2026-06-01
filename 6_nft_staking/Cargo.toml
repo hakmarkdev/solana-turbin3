@@ -1,0 +1,27 @@
+[workspace]
+members = [
+    "programs/*"
+]
+resolver = "2"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+[profile.release.build-override]
+opt-level = 3
+incremental = false
+codegen-units = 1
+
+# mpl-core's borsh deserializers have stack frames that creep over the SBF
+# 4096-byte limit. Optimizing this dependency for size keeps them under the
+# limit; our own program above is unaffected.
+[profile.release.package.mpl-core]
+opt-level = "z"
+
+# Local patch of mpl-core 0.12.0: boxes the PluginsList accumulator in
+# registry_records_to_plugin_list to keep its SBF stack frame under 4096 bytes.
+# See vendor/mpl-core/src/hooked/plugin.rs. Re-vendor when bumping mpl-core.
+[patch.crates-io]
+mpl-core = { path = "vendor/mpl-core" }
+
